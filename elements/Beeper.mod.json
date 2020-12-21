@@ -77,8 +77,8 @@
       "value": "END_ROD"
     },
     "particleSpawningShape": "Spread",
-    "particleSpawningRadious": 0.2999999985098839,
-    "particleAmount": 4,
+    "particleSpawningRadious": 0.09999999850988389,
+    "particleAmount": 2,
     "hasInventory": false,
     "guiBoundTo": "<NONE>",
     "openGUIOnRightClick": false,
