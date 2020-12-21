@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "karel_mod:block/unbreakable_wall_2"
+    }
+  }
+}
