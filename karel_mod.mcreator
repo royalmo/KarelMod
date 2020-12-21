@@ -81,6 +81,15 @@
       "locked_code": false,
       "ids": {},
       "registry_name": "teleporter"
+    },
+    {
+      "name": "Bomb",
+      "type": "block",
+      "sortid": 10,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "bomb"
     }
   ],
   "variable_elements": [],
@@ -89,6 +98,7 @@
     "en_us": {
       "block.karel_mod.ground_blue": "Karel Blue Ground",
       "block.karel_mod.ground_red": "Karel Red Ground",
+      "block.karel_mod.bomb": "Bomb",
       "block.karel_mod.beeper": "Beeper",
       "block.karel_mod.normal_wall": "Karel Wall",
       "block.karel_mod.teleporter": "Teleporter",
