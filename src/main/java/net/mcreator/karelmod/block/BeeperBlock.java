@@ -7,6 +7,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.World;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -18,14 +20,19 @@ import net.minecraft.util.Direction;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.Minecraft;
+import net.minecraft.block.material.PushReaction;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.IWaterLoggable;
@@ -35,6 +42,7 @@ import net.minecraft.block.Block;
 import net.mcreator.karelmod.itemgroup.KarelItemGroup;
 import net.mcreator.karelmod.KarelModModElements;
 
+import java.util.Random;
 import java.util.List;
 import java.util.Collections;
 
@@ -70,6 +78,11 @@ public class BeeperBlock extends KarelModModElements.ModElement {
 		@Override
 		public boolean isEmissiveRendering(BlockState blockState) {
 			return true;
+		}
+
+		@Override
+		public float[] getBeaconColorMultiplier(BlockState state, IWorldReader world, BlockPos pos, BlockPos beaconPos) {
+			return new float[]{0f, 0.6f, 0.6f};
 		}
 
 		@Override
@@ -115,11 +128,42 @@ public class BeeperBlock extends KarelModModElements.ModElement {
 		}
 
 		@Override
+		public MaterialColor getMaterialColor(BlockState state, IBlockReader blockAccess, BlockPos pos) {
+			return MaterialColor.SNOW;
+		}
+
+		@Override
+		public PushReaction getPushReaction(BlockState state) {
+			return PushReaction.DESTROY;
+		}
+
+		@Override
 		public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
 			List<ItemStack> dropsOriginal = super.getDrops(state, builder);
 			if (!dropsOriginal.isEmpty())
 				return dropsOriginal;
-			return Collections.singletonList(new ItemStack(this, 1));
+			return Collections.singletonList(new ItemStack(BeeperBlock.block, (int) (1)));
+		}
+
+		@OnlyIn(Dist.CLIENT)
+		@Override
+		public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
+			super.animateTick(state, world, pos, random);
+			PlayerEntity entity = Minecraft.getInstance().player;
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			if (true)
+				for (int l = 0; l < 4; ++l) {
+					double d0 = (x + random.nextFloat());
+					double d1 = (y + random.nextFloat());
+					double d2 = (z + random.nextFloat());
+					int i1 = random.nextInt(2) * 2 - 1;
+					double d3 = (random.nextFloat() - 0.5D) * 0.2999999985098839D;
+					double d4 = (random.nextFloat() - 0.5D) * 0.2999999985098839D;
+					double d5 = (random.nextFloat() - 0.5D) * 0.2999999985098839D;
+					world.addParticle(ParticleTypes.END_ROD, d0, d1, d2, d3, d4, d5);
+				}
 		}
 	}
 }
