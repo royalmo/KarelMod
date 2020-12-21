@@ -1,8 +1,10 @@
 {
   "block.karel_mod.ground_blue": "Karel Blue Ground",
   "block.karel_mod.ground_red": "Karel Red Ground",
+  "block.karel_mod.beeper": "Beeper",
   "block.karel_mod.normal_wall": "Karel Wall",
   "block.karel_mod.unbreakable_wall": "Karel Unbreakable Wall",
   "block.karel_mod.unbreakable_wall_2": "Karel Stylized Unbreakable Wall",
-  "block.karel_mod.unbreakable_wall_3": "Karel Unbreakable Wall Stone"
+  "block.karel_mod.unbreakable_wall_3": "Karel Unbreakable Wall Stone",
+  "itemGroup.tabkarel": "Karel"
 }

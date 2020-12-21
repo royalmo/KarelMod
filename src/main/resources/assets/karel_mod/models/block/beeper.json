@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "karel_mod:blocks/untitled-2",
+    "particle": "karel_mod:blocks/untitled-2"
+  }
+}
