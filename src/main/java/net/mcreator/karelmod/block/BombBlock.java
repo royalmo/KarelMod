@@ -7,6 +7,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.World;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -24,6 +25,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.entity.Entity;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.block.material.Material;
@@ -32,10 +34,13 @@ import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 
+import net.mcreator.karelmod.procedures.ActivateBombProcedure;
 import net.mcreator.karelmod.itemgroup.KarelItemGroup;
 import net.mcreator.karelmod.KarelModModElements;
 
+import java.util.Map;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Collections;
 
 @KarelModModElements.ModElement.Tag
@@ -112,6 +117,22 @@ public class BombBlock extends KarelModModElements.ModElement {
 			if (!dropsOriginal.isEmpty())
 				return dropsOriginal;
 			return Collections.singletonList(new ItemStack(this, 1));
+		}
+
+		@Override
+		public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+			super.onEntityCollision(state, world, pos, entity);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				ActivateBombProcedure.executeProcedure($_dependencies);
+			}
 		}
 	}
 }
