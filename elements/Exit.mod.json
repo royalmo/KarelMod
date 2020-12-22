@@ -1,0 +1,9 @@
+{
+  "_fv": 13,
+  "_type": "keybind",
+  "definition": {
+    "triggerKey": "G",
+    "keyBindingName": "Exit",
+    "keyBindingCategoryKey": "movement"
+  }
+}

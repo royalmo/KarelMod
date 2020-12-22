@@ -1,9 +1,9 @@
 {
-  "parent": "karel_mod:custom/teleporter",
+  "parent": "karel_mod:custom/bomb",
   "textures": {
     "all": "karel_mod:blocks/bomb",
     "particle": "karel_mod:blocks/bomb",
-    "0": "karel_mod:blocks/teleporter_texture",
-    "missing": "karel_mod:blocks/teleporter_texture"
+    "0": "karel_mod:blocks/bomb",
+    "missing": "karel_mod:blocks/bomb"
   }
 }

@@ -1,0 +1,26 @@
+{
+  "_fv": 13,
+  "_type": "overlay",
+  "definition": {
+    "priority": "NORMAL",
+    "components": [
+      {
+        "type": "label",
+        "data": {
+          "text": "Press R to teleport",
+          "color": {
+            "value": -1,
+            "falpha": 0.0
+          },
+          "name": "Press R to teleport",
+          "x": 166,
+          "y": 182
+        }
+      }
+    ],
+    "baseTexture": "",
+    "displayCondition": {
+      "name": "TeleportTextDisplayOverlayIngame"
+    }
+  }
+}

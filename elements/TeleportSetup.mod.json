@@ -1,0 +1,115 @@
+{
+  "_fv": 13,
+  "_type": "gui",
+  "definition": {
+    "type": 0,
+    "width": 184,
+    "height": 125,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": true,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "label",
+        "data": {
+          "text": "KAREL TELEPORTATION PORTAL",
+          "color": {
+            "value": -16777216,
+            "falpha": 0.0
+          },
+          "name": "KAREL TELEPORTATION PORTAL",
+          "x": 126,
+          "y": 64
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "Teleport the robot to...",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": "Teleport the robot to...",
+          "x": 125,
+          "y": 80
+        }
+      },
+      {
+        "type": "textfield",
+        "data": {
+          "placeholder": "x",
+          "width": 120,
+          "height": 20,
+          "name": "pos_x",
+          "x": 126,
+          "y": 94
+        }
+      },
+      {
+        "type": "textfield",
+        "data": {
+          "placeholder": "y",
+          "width": 120,
+          "height": 20,
+          "name": "pos_y",
+          "x": 126,
+          "y": 116
+        }
+      },
+      {
+        "type": "textfield",
+        "data": {
+          "placeholder": "z",
+          "width": 120,
+          "height": 20,
+          "name": "pos_z",
+          "x": 126,
+          "y": 137
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Apply",
+          "onClick": {
+            "name": "CheckPortalCoords"
+          },
+          "width": 45,
+          "height": 20,
+          "name": "Apply",
+          "x": 253,
+          "y": 135
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "<VAR:TeleportSetupLog>",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": "<VAR:TeleportSetupLog>",
+          "x": 126,
+          "y": 163
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Exit",
+          "width": 45,
+          "height": 20,
+          "name": "Exit",
+          "x": 253,
+          "y": 157
+        }
+      }
+    ],
+    "onOpen": {
+      "name": "TeleportSetupThisGUIIsOpened"
+    }
+  }
+}

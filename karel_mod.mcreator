@@ -90,22 +90,228 @@
       "locked_code": false,
       "ids": {},
       "registry_name": "bomb"
+    },
+    {
+      "name": "TeleportSetup",
+      "type": "gui",
+      "sortid": 11,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "teleport_setup"
+    },
+    {
+      "name": "Teleport",
+      "type": "keybind",
+      "sortid": 12,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "teleport"
+    },
+    {
+      "name": "Exit",
+      "type": "keybind",
+      "sortid": 13,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "exit"
+    },
+    {
+      "name": "ExitText",
+      "type": "overlay",
+      "sortid": 14,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "exit_text"
+    },
+    {
+      "name": "TeleportText",
+      "type": "overlay",
+      "sortid": 14,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "teleport_text"
+    },
+    {
+      "name": "ExitTextDisplayOverlayIngame",
+      "type": "procedure",
+      "sortid": 15,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "exit_text_display_overlay_ingame",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TeleportTextDisplayOverlayIngame",
+      "type": "procedure",
+      "sortid": 16,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "teleport_text_display_overlay_ingame",
+      "metadata": {
+        "return_type": "LOGIC",
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Minimap",
+      "type": "overlay",
+      "sortid": 14,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "minimap"
+    },
+    {
+      "name": "TeleporterOnBlockRightClicked",
+      "type": "procedure",
+      "sortid": 17,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "teleporter_on_block_right_clicked",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TeleportSetupThisGUIIsOpened",
+      "type": "procedure",
+      "sortid": 18,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "teleport_setup_this_gui_is_opened",
+      "metadata": {
+        "dependencies": []
+      }
+    },
+    {
+      "name": "CheckPortalCoords",
+      "type": "procedure",
+      "sortid": 19,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "check_portal_coords",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "guistate",
+            "type": "map"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "QuitTeleportGUI",
+      "type": "procedure",
+      "sortid": 20,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "quit_teleport_gui",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          }
+        ]
+      }
     }
   ],
-  "variable_elements": [],
+  "variable_elements": [
+    {
+      "name": "TeleportSetupLog",
+      "type": "string",
+      "scope": "global",
+      "value": "No errors!"
+    }
+  ],
   "sound_elements": [],
   "language_map": {
     "en_us": {
-      "block.karel_mod.ground_blue": "Karel Blue Ground",
-      "block.karel_mod.ground_red": "Karel Red Ground",
       "block.karel_mod.bomb": "Bomb",
       "block.karel_mod.beeper": "Beeper",
+      "key.mcreator.exit": "Exit",
+      "block.karel_mod.ground_blue": "Karel Blue Ground",
+      "block.karel_mod.ground_red": "Karel Red Ground",
       "block.karel_mod.normal_wall": "Karel Wall",
       "block.karel_mod.teleporter": "Teleporter",
       "block.karel_mod.unbreakable_wall": "Karel Unbreakable Wall",
       "block.karel_mod.unbreakable_wall_2": "Karel Stylized Unbreakable Wall",
       "block.karel_mod.unbreakable_wall_3": "Karel Unbreakable Wall Stone",
-      "itemGroup.tabkarel": "Karel"
+      "itemGroup.tabkarel": "Karel",
+      "key.mcreator.teleport": "Teleport"
     }
   },
   "workspaceSettings": {

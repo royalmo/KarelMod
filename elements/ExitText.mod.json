@@ -1,0 +1,26 @@
+{
+  "_fv": 13,
+  "_type": "overlay",
+  "definition": {
+    "priority": "NORMAL",
+    "components": [
+      {
+        "type": "label",
+        "data": {
+          "text": "Press G to exit",
+          "color": {
+            "value": -1,
+            "falpha": 0.0
+          },
+          "name": "Press G to exit",
+          "x": 175,
+          "y": 182
+        }
+      }
+    ],
+    "baseTexture": "",
+    "displayCondition": {
+      "name": "ExitTextDisplayOverlayIngame"
+    }
+  }
+}
