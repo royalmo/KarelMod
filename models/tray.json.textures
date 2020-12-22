@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "tray_texture",
+        "missing": "tray_texture"
+      },
+      "name": "default"
+    }
+  }
+}

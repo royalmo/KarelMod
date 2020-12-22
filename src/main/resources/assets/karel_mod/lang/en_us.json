@@ -2,6 +2,7 @@
   "block.karel_mod.bomb": "Bomb",
   "block.karel_mod.beeper": "Beeper",
   "key.mcreator.exit": "Exit",
+  "block.karel_mod.tray": "Tray",
   "block.karel_mod.ground_blue": "Karel Blue Ground",
   "block.karel_mod.ground_red": "Karel Red Ground",
   "block.karel_mod.normal_wall": "Karel Wall",

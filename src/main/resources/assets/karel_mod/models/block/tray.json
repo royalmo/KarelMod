@@ -1,0 +1,9 @@
+{
+  "parent": "karel_mod:custom/tray",
+  "textures": {
+    "all": "karel_mod:blocks/tray_texture",
+    "particle": "karel_mod:blocks/tray_texture",
+    "0": "karel_mod:blocks/tray_texture",
+    "missing": "karel_mod:blocks/tray_texture"
+  }
+}

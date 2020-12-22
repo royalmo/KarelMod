@@ -1,0 +1,100 @@
+{
+  "_fv": 13,
+  "_type": "gui",
+  "definition": {
+    "type": 1,
+    "width": 176,
+    "height": 166,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": true,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "inputslot",
+        "data": {
+          "inputLimit": {
+            "value": "CUSTOM:Beeper"
+          },
+          "color": {
+            "value": -16724788,
+            "falpha": 0.0
+          },
+          "id": 0,
+          "disableStackInteraction": false,
+          "dropItemsWhenNotBound": true,
+          "name": "Slot #0",
+          "x": 168,
+          "y": 88
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "KAREL TRAY CONTENTS",
+          "color": {
+            "value": -16777216,
+            "falpha": 0.0
+          },
+          "name": "KAREL TRAY CONTENTS",
+          "x": 131,
+          "y": 45
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "Place here the beepers",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": "Place here the beepers",
+          "x": 131,
+          "y": 58
+        }
+      },
+      {
+        "type": "outputslot",
+        "data": {
+          "color": {
+            "value": -16724788,
+            "falpha": 0.0
+          },
+          "id": 1,
+          "disableStackInteraction": true,
+          "dropItemsWhenNotBound": true,
+          "name": "Slot #1",
+          "x": 240,
+          "y": 88
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "Current",
+          "color": {
+            "value": -16724788,
+            "falpha": 0.0
+          },
+          "name": "Current",
+          "x": 160,
+          "y": 75
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "Needed",
+          "color": {
+            "value": -16724788,
+            "falpha": 0.0
+          },
+          "name": "Needed",
+          "x": 234,
+          "y": 75
+        }
+      }
+    ]
+  }
+}
