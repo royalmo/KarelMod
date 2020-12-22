@@ -31,6 +31,7 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.Minecraft;
 
 import net.mcreator.karelmod.procedures.TeleportSetupThisGUIIsOpenedProcedure;
+import net.mcreator.karelmod.procedures.QuitTeleportGUIProcedure;
 import net.mcreator.karelmod.procedures.CheckPortalCoordsProcedure;
 import net.mcreator.karelmod.KarelModModVariables;
 import net.mcreator.karelmod.KarelModModElements;
@@ -357,7 +358,16 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 		if (buttonID == 0) {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("guistate", guistate);
+				$_dependencies.put("world", world);
 				CheckPortalCoordsProcedure.executeProcedure($_dependencies);
+			}
+		}
+		if (buttonID == 1) {
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				QuitTeleportGUIProcedure.executeProcedure($_dependencies);
 			}
 		}
 	}
