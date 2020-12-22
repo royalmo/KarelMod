@@ -30,6 +30,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.Minecraft;
@@ -43,11 +44,11 @@ import java.util.Map;
 import java.util.HashMap;
 
 @KarelModModElements.ModElement.Tag
-public class TrayGuiGui extends KarelModModElements.ModElement {
+public class TraySetupGuiGui extends KarelModModElements.ModElement {
 	public static HashMap guistate = new HashMap();
 	private static ContainerType<GuiContainerMod> containerType = null;
-	public TrayGuiGui(KarelModModElements instance) {
-		super(instance, 24);
+	public TraySetupGuiGui(KarelModModElements instance) {
+		super(instance, 25);
 		elements.addNetworkMessage(ButtonPressedMessage.class, ButtonPressedMessage::buffer, ButtonPressedMessage::new,
 				ButtonPressedMessage::handler);
 		elements.addNetworkMessage(GUISlotChangedMessage.class, GUISlotChangedMessage::buffer, GUISlotChangedMessage::new,
@@ -63,7 +64,7 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 
 	@SubscribeEvent
 	public void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
-		event.getRegistry().register(containerType.setRegistryName("tray_gui"));
+		event.getRegistry().register(containerType.setRegistryName("tray_setup_gui"));
 	}
 	public static class GuiContainerModFactory implements IContainerFactory {
 		public GuiContainerMod create(int id, PlayerInventory inv, PacketBuffer extraData) {
@@ -82,7 +83,7 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 			super(containerType, id);
 			this.entity = inv.player;
 			this.world = inv.player.world;
-			this.internal = new ItemStackHandler(2);
+			this.internal = new ItemStackHandler(1);
 			BlockPos pos = null;
 			if (extraData != null) {
 				pos = extraData.readBlockPos();
@@ -120,21 +121,10 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 					}
 				}
 			}
-			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 41, 48) {
+			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 42, 43) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return (new ItemStack(BeeperBlock.block, (int) (1)).getItem() == stack.getItem());
-				}
-			}));
-			this.customSlots.put(1, this.addSlot(new SlotItemHandler(internal, 1, 114, 49) {
-				@Override
-				public boolean canTakeStack(PlayerEntity player) {
-					return false;
-				}
-
-				@Override
-				public boolean isItemValid(ItemStack stack) {
-					return false;
 				}
 			}));
 			int si;
@@ -162,18 +152,18 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 			if (slot != null && slot.getHasStack()) {
 				ItemStack itemstack1 = slot.getStack();
 				itemstack = itemstack1.copy();
-				if (index < 2) {
-					if (!this.mergeItemStack(itemstack1, 2, this.inventorySlots.size(), true)) {
+				if (index < 1) {
+					if (!this.mergeItemStack(itemstack1, 1, this.inventorySlots.size(), true)) {
 						return ItemStack.EMPTY;
 					}
 					slot.onSlotChange(itemstack1, itemstack);
-				} else if (!this.mergeItemStack(itemstack1, 0, 2, false)) {
-					if (index < 2 + 27) {
-						if (!this.mergeItemStack(itemstack1, 2 + 27, this.inventorySlots.size(), true)) {
+				} else if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+					if (index < 1 + 27) {
+						if (!this.mergeItemStack(itemstack1, 1 + 27, this.inventorySlots.size(), true)) {
 							return ItemStack.EMPTY;
 						}
 					} else {
-						if (!this.mergeItemStack(itemstack1, 2, 2 + 27, false)) {
+						if (!this.mergeItemStack(itemstack1, 1, 1 + 27, false)) {
 							return ItemStack.EMPTY;
 						}
 					}
@@ -281,15 +271,11 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 					for (int j = 0; j < internal.getSlots(); ++j) {
 						if (j == 0)
 							continue;
-						if (j == 1)
-							continue;
 						playerIn.dropItem(internal.extractItem(j, internal.getStackInSlot(j).getCount(), false), false);
 					}
 				} else {
 					for (int i = 0; i < internal.getSlots(); ++i) {
 						if (i == 0)
-							continue;
-						if (i == 1)
 							continue;
 						playerIn.inventory.placeItemBackInInventory(playerIn.world,
 								internal.extractItem(i, internal.getStackInSlot(i).getCount(), false));
@@ -321,7 +307,7 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 			this.xSize = 176;
 			this.ySize = 166;
 		}
-		private static final ResourceLocation texture = new ResourceLocation("karel_mod:textures/tray_gui.png");
+		private static final ResourceLocation texture = new ResourceLocation("karel_mod:textures/tray_setup_gui.png");
 		@Override
 		public void render(int mouseX, int mouseY, float partialTicks) {
 			this.renderBackground();
@@ -354,11 +340,9 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 
 		@Override
 		protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-			this.font.drawString("KAREL TRAY CONTENTS", 5, 8, -16777216);
-			this.font.drawString("Place here the beepers", 5, 21, -12829636);
-			this.font.drawString("Current", 33, 34, -16724788);
-			this.font.drawString("Needed", 107, 34, -16724788);
-			this.font.drawString("2 beepers left!", 47, 70, -12829636);
+			this.font.drawString("KAREL TRAY SETUP", 6, 8, -16777216);
+			this.font.drawString("How many beepers needed?", 27, 25, -12829636);
+			this.font.drawString("Applied successfully!", 34, 67, -12829636);
 		}
 
 		@Override
@@ -371,6 +355,10 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 		public void init(Minecraft minecraft, int width, int height) {
 			super.init(minecraft, width, height);
 			minecraft.keyboardListener.enableRepeatEvents(true);
+			this.addButton(new Button(this.guiLeft + 87, this.guiTop + 41, 50, 20, "Apply", e -> {
+				KarelModMod.PACKET_HANDLER.sendToServer(new ButtonPressedMessage(0, x, y, z));
+				handleButtonAction(entity, 0, x, y, z);
+			}));
 		}
 	}
 

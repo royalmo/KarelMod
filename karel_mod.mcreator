@@ -396,6 +396,15 @@
       "locked_code": false,
       "ids": {},
       "registry_name": "tray_gui"
+    },
+    {
+      "name": "TraySetupGui",
+      "type": "gui",
+      "sortid": 25,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "tray_setup_gui"
     }
   ],
   "variable_elements": [

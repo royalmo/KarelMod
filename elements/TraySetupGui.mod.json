@@ -1,0 +1,83 @@
+{
+  "_fv": 13,
+  "_type": "gui",
+  "definition": {
+    "type": 1,
+    "width": 176,
+    "height": 166,
+    "inventoryOffsetX": 0,
+    "inventoryOffsetY": 0,
+    "renderBgLayer": true,
+    "doesPauseGame": false,
+    "components": [
+      {
+        "type": "inputslot",
+        "data": {
+          "inputLimit": {
+            "value": "CUSTOM:Beeper"
+          },
+          "color": {
+            "value": -16724788,
+            "falpha": 0.0
+          },
+          "id": 0,
+          "disableStackInteraction": false,
+          "dropItemsWhenNotBound": false,
+          "name": "Slot #0",
+          "x": 167,
+          "y": 79
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "KAREL TRAY SETUP",
+          "color": {
+            "value": -16777216,
+            "falpha": 0.0
+          },
+          "name": "KAREL TRAY SETUP",
+          "x": 132,
+          "y": 45
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "How many beepers needed?",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": "How many beepers needed?",
+          "x": 153,
+          "y": 62
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "Apply",
+          "width": 50,
+          "height": 20,
+          "name": "Apply",
+          "x": 213,
+          "y": 78
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": "Applied successfully!",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": "Applied successfully!",
+          "x": 160,
+          "y": 104
+        }
+      }
+    ]
+  }
+}
