@@ -247,7 +247,24 @@
       "ids": {},
       "registry_name": "teleport_setup_this_gui_is_opened",
       "metadata": {
-        "dependencies": []
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
       }
     },
     {
@@ -263,6 +280,18 @@
           {
             "name": "guistate",
             "type": "map"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
           },
           {
             "name": "world",
@@ -287,6 +316,39 @@
           }
         ]
       }
+    },
+    {
+      "name": "TeleportAction",
+      "type": "procedure",
+      "sortid": 21,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "teleport_action",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -295,6 +357,24 @@
       "type": "string",
       "scope": "global",
       "value": "No errors!"
+    },
+    {
+      "name": "TeleportLastX",
+      "type": "number",
+      "scope": "global",
+      "value": "0.0"
+    },
+    {
+      "name": "TeleportLastY",
+      "type": "number",
+      "scope": "global",
+      "value": "0"
+    },
+    {
+      "name": "TeleportLastZ",
+      "type": "number",
+      "scope": "global",
+      "value": "0"
     }
   ],
   "sound_elements": [],

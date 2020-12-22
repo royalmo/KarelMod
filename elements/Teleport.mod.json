@@ -4,6 +4,9 @@
   "definition": {
     "triggerKey": "R",
     "keyBindingName": "Teleport",
-    "keyBindingCategoryKey": "movement"
+    "keyBindingCategoryKey": "movement",
+    "onKeyReleased": {
+      "name": "TeleportAction"
+    }
   }
 }

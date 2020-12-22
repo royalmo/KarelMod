@@ -3,8 +3,8 @@
   "_type": "gui",
   "definition": {
     "type": 0,
-    "width": 184,
-    "height": 125,
+    "width": 200,
+    "height": 147,
     "inventoryOffsetX": 0,
     "inventoryOffsetY": 0,
     "renderBgLayer": true,
@@ -20,7 +20,7 @@
           },
           "name": "KAREL TELEPORTATION PORTAL",
           "x": 126,
-          "y": 64
+          "y": 54
         }
       },
       {
@@ -32,55 +32,41 @@
             "falpha": 0.0
           },
           "name": "Teleport the robot to...",
-          "x": 125,
+          "x": 126,
+          "y": 66
+        }
+      },
+      {
+        "type": "textfield",
+        "data": {
+          "placeholder": "Enter x",
+          "width": 120,
+          "height": 20,
+          "name": "pos_x",
+          "x": 121,
           "y": 80
         }
       },
       {
         "type": "textfield",
         "data": {
-          "placeholder": "x",
-          "width": 120,
-          "height": 20,
-          "name": "pos_x",
-          "x": 126,
-          "y": 94
-        }
-      },
-      {
-        "type": "textfield",
-        "data": {
-          "placeholder": "y",
+          "placeholder": "Enter y",
           "width": 120,
           "height": 20,
           "name": "pos_y",
-          "x": 126,
-          "y": 116
+          "x": 121,
+          "y": 102
         }
       },
       {
         "type": "textfield",
         "data": {
-          "placeholder": "z",
+          "placeholder": "Enter z",
           "width": 120,
           "height": 20,
           "name": "pos_z",
-          "x": 126,
-          "y": 137
-        }
-      },
-      {
-        "type": "button",
-        "data": {
-          "text": "Apply",
-          "onClick": {
-            "name": "CheckPortalCoords"
-          },
-          "width": 45,
-          "height": 20,
-          "name": "Apply",
-          "x": 253,
-          "y": 135
+          "x": 121,
+          "y": 124
         }
       },
       {
@@ -92,22 +78,75 @@
             "falpha": 0.0
           },
           "name": "<VAR:TeleportSetupLog>",
-          "x": 126,
-          "y": 163
+          "x": 125,
+          "y": 147
         }
       },
       {
         "type": "button",
         "data": {
-          "text": "Exit",
+          "text": "    Exit    ",
           "onClick": {
             "name": "QuitTeleportGUI"
           },
-          "width": 45,
+          "width": 85,
           "height": 20,
-          "name": "Exit",
-          "x": 253,
-          "y": 157
+          "name": "    Exit    ",
+          "x": 121,
+          "y": 164
+        }
+      },
+      {
+        "type": "button",
+        "data": {
+          "text": "    Apply    ",
+          "onClick": {
+            "name": "CheckPortalCoords"
+          },
+          "width": 90,
+          "height": 20,
+          "name": "    Apply    ",
+          "x": 213,
+          "y": 164
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": " X = <VAR:integer:TeleportLastX>",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": " X = <VAR:integer:TeleportLastX>",
+          "x": 240,
+          "y": 85
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": " Y = <VAR:integer:TeleportLastY>",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": " Y = <VAR:integer:TeleportLastY>",
+          "x": 240,
+          "y": 107
+        }
+      },
+      {
+        "type": "label",
+        "data": {
+          "text": " Z = <VAR:integer:TeleportLastZ>",
+          "color": {
+            "value": -12829636,
+            "falpha": 0.0
+          },
+          "name": " Z = <VAR:integer:TeleportLastZ>",
+          "x": 240,
+          "y": 128
         }
       }
     ],

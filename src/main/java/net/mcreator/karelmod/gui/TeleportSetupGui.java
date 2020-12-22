@@ -91,6 +91,10 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 			}
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
 				TeleportSetupThisGUIIsOpenedProcedure.executeProcedure($_dependencies);
 			}
 		}
@@ -120,8 +124,8 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 			this.y = container.y;
 			this.z = container.z;
 			this.entity = container.entity;
-			this.xSize = 184;
-			this.ySize = 125;
+			this.xSize = 200;
+			this.ySize = 147;
 		}
 		private static final ResourceLocation texture = new ResourceLocation("karel_mod:textures/teleport_setup.png");
 		@Override
@@ -168,9 +172,12 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 
 		@Override
 		protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-			this.font.drawString("KAREL TELEPORTATION PORTAL", 4, 6, -16777216);
-			this.font.drawString("Teleport the robot to...", 3, 22, -12829636);
-			this.font.drawString("" + (KarelModModVariables.TeleportSetupLog) + "", 4, 105, -12829636);
+			this.font.drawString("KAREL TELEPORTATION PORTAL", 12, 7, -16777216);
+			this.font.drawString("Teleport the robot to...", 12, 19, -12829636);
+			this.font.drawString("" + (KarelModModVariables.TeleportSetupLog) + "", 11, 100, -12829636);
+			this.font.drawString(" X = " + (int) (KarelModModVariables.TeleportLastX) + "", 126, 38, -12829636);
+			this.font.drawString(" Y = " + (int) (KarelModModVariables.TeleportLastY) + "", 126, 60, -12829636);
+			this.font.drawString(" Z = " + (int) (KarelModModVariables.TeleportLastZ) + "", 126, 81, -12829636);
 		}
 
 		@Override
@@ -183,15 +190,15 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 		public void init(Minecraft minecraft, int width, int height) {
 			super.init(minecraft, width, height);
 			minecraft.keyboardListener.enableRepeatEvents(true);
-			pos_x = new TextFieldWidget(this.font, this.guiLeft + 4, this.guiTop + 36, 120, 20, "x") {
+			pos_x = new TextFieldWidget(this.font, this.guiLeft + 7, this.guiTop + 33, 120, 20, "Enter x") {
 				{
-					setSuggestion("x");
+					setSuggestion("Enter x");
 				}
 				@Override
 				public void writeText(String text) {
 					super.writeText(text);
 					if (getText().isEmpty())
-						setSuggestion("x");
+						setSuggestion("Enter x");
 					else
 						setSuggestion(null);
 				}
@@ -200,7 +207,7 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 				public void setCursorPosition(int pos) {
 					super.setCursorPosition(pos);
 					if (getText().isEmpty())
-						setSuggestion("x");
+						setSuggestion("Enter x");
 					else
 						setSuggestion(null);
 				}
@@ -208,15 +215,15 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 			guistate.put("text:pos_x", pos_x);
 			pos_x.setMaxStringLength(32767);
 			this.children.add(this.pos_x);
-			pos_y = new TextFieldWidget(this.font, this.guiLeft + 4, this.guiTop + 58, 120, 20, "y") {
+			pos_y = new TextFieldWidget(this.font, this.guiLeft + 7, this.guiTop + 55, 120, 20, "Enter y") {
 				{
-					setSuggestion("y");
+					setSuggestion("Enter y");
 				}
 				@Override
 				public void writeText(String text) {
 					super.writeText(text);
 					if (getText().isEmpty())
-						setSuggestion("y");
+						setSuggestion("Enter y");
 					else
 						setSuggestion(null);
 				}
@@ -225,7 +232,7 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 				public void setCursorPosition(int pos) {
 					super.setCursorPosition(pos);
 					if (getText().isEmpty())
-						setSuggestion("y");
+						setSuggestion("Enter y");
 					else
 						setSuggestion(null);
 				}
@@ -233,15 +240,15 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 			guistate.put("text:pos_y", pos_y);
 			pos_y.setMaxStringLength(32767);
 			this.children.add(this.pos_y);
-			pos_z = new TextFieldWidget(this.font, this.guiLeft + 4, this.guiTop + 79, 120, 20, "z") {
+			pos_z = new TextFieldWidget(this.font, this.guiLeft + 7, this.guiTop + 77, 120, 20, "Enter z") {
 				{
-					setSuggestion("z");
+					setSuggestion("Enter z");
 				}
 				@Override
 				public void writeText(String text) {
 					super.writeText(text);
 					if (getText().isEmpty())
-						setSuggestion("z");
+						setSuggestion("Enter z");
 					else
 						setSuggestion(null);
 				}
@@ -250,7 +257,7 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 				public void setCursorPosition(int pos) {
 					super.setCursorPosition(pos);
 					if (getText().isEmpty())
-						setSuggestion("z");
+						setSuggestion("Enter z");
 					else
 						setSuggestion(null);
 				}
@@ -258,11 +265,11 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 			guistate.put("text:pos_z", pos_z);
 			pos_z.setMaxStringLength(32767);
 			this.children.add(this.pos_z);
-			this.addButton(new Button(this.guiLeft + 131, this.guiTop + 77, 45, 20, "Apply", e -> {
+			this.addButton(new Button(this.guiLeft + 7, this.guiTop + 117, 85, 20, "    Exit    ", e -> {
 				KarelModMod.PACKET_HANDLER.sendToServer(new ButtonPressedMessage(0, x, y, z));
 				handleButtonAction(entity, 0, x, y, z);
 			}));
-			this.addButton(new Button(this.guiLeft + 131, this.guiTop + 99, 45, 20, "Exit", e -> {
+			this.addButton(new Button(this.guiLeft + 99, this.guiTop + 117, 90, 20, "    Apply    ", e -> {
 				KarelModMod.PACKET_HANDLER.sendToServer(new ButtonPressedMessage(1, x, y, z));
 				handleButtonAction(entity, 1, x, y, z);
 			}));
@@ -358,16 +365,19 @@ public class TeleportSetupGui extends KarelModModElements.ModElement {
 		if (buttonID == 0) {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("guistate", guistate);
-				$_dependencies.put("world", world);
-				CheckPortalCoordsProcedure.executeProcedure($_dependencies);
+				$_dependencies.put("entity", entity);
+				QuitTeleportGUIProcedure.executeProcedure($_dependencies);
 			}
 		}
 		if (buttonID == 1) {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
-				QuitTeleportGUIProcedure.executeProcedure($_dependencies);
+				$_dependencies.put("guistate", guistate);
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				CheckPortalCoordsProcedure.executeProcedure($_dependencies);
 			}
 		}
 	}
