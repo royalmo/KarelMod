@@ -58,6 +58,9 @@
         "type": "button",
         "data": {
           "text": "Apply",
+          "onClick": {
+            "name": "TraySetupGuiApply"
+          },
           "width": 50,
           "height": 20,
           "name": "Apply",
@@ -68,16 +71,19 @@
       {
         "type": "label",
         "data": {
-          "text": "Applied successfully!",
+          "text": "<VAR:TraySetupLog>",
           "color": {
             "value": -12829636,
             "falpha": 0.0
           },
-          "name": "Applied successfully!",
+          "name": "<VAR:TraySetupLog>",
           "x": 160,
           "y": 104
         }
       }
-    ]
+    ],
+    "onOpen": {
+      "name": "TraySetupGuiThisGUIIsOpened"
+    }
   }
 }

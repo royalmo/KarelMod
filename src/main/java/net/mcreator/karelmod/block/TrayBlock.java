@@ -21,9 +21,16 @@ import net.minecraft.world.ILightReader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
@@ -57,6 +64,9 @@ import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 
+import net.mcreator.karelmod.procedures.TrayOnBlockRightClickedProcedure;
+import net.mcreator.karelmod.procedures.TrayBlockAddedProcedure;
+import net.mcreator.karelmod.procedures.IsTrayFillCorrectProcedure;
 import net.mcreator.karelmod.itemgroup.KarelItemGroup;
 import net.mcreator.karelmod.KarelModModElements;
 
@@ -64,8 +74,12 @@ import javax.annotation.Nullable;
 
 import java.util.stream.IntStream;
 import java.util.Random;
+import java.util.Map;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Collections;
+
+import com.google.common.collect.ImmutableMap;
 
 @KarelModModElements.ModElement.Tag
 public class TrayBlock extends KarelModModElements.ModElement {
@@ -119,6 +133,12 @@ public class TrayBlock extends KarelModModElements.ModElement {
 		}
 
 		@Override
+		public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+			Vec3d offset = state.getOffset(world, pos);
+			return VoxelShapes.create(0D, 0D, 0D, 1D, 0.05D, 1D).withOffset(offset.x, offset.y, offset.z);
+		}
+
+		@Override
 		public BlockState getStateForPlacement(BlockItemUseContext context) {
 			boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
 			return this.getDefaultState().with(WATERLOGGED, flag);
@@ -151,6 +171,22 @@ public class TrayBlock extends KarelModModElements.ModElement {
 			return Collections.singletonList(new ItemStack(this, 1));
 		}
 
+		@Override
+		public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean moving) {
+			super.onBlockAdded(state, world, pos, oldState, moving);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				TrayBlockAddedProcedure.executeProcedure($_dependencies);
+			}
+		}
+
 		@OnlyIn(Dist.CLIENT)
 		@Override
 		public void animateTick(BlockState state, World world, BlockPos pos, Random random) {
@@ -159,7 +195,7 @@ public class TrayBlock extends KarelModModElements.ModElement {
 			int x = pos.getX();
 			int y = pos.getY();
 			int z = pos.getZ();
-			if (true)
+			if (IsTrayFillCorrectProcedure.executeProcedure(ImmutableMap.of("x", x, "y", y, "z", z, "world", world)))
 				for (int l = 0; l < 1; ++l) {
 					double d0 = (x + random.nextFloat());
 					double d1 = (y + random.nextFloat());
@@ -170,6 +206,26 @@ public class TrayBlock extends KarelModModElements.ModElement {
 					double d5 = (random.nextFloat() - 0.5D) * 0.1999999985098839D;
 					world.addParticle(ParticleTypes.SQUID_INK, d0, d1, d2, d3, d4, d5);
 				}
+		}
+
+		@Override
+		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
+				BlockRayTraceResult hit) {
+			super.onBlockActivated(state, world, pos, entity, hand, hit);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			Direction direction = hit.getFace();
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				TrayOnBlockRightClickedProcedure.executeProcedure($_dependencies);
+			}
+			return ActionResultType.SUCCESS;
 		}
 
 		@Override

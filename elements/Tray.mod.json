@@ -22,7 +22,7 @@
     "my": 0.0,
     "mz": 0.0,
     "Mx": 1.0,
-    "My": 1.0,
+    "My": 0.05,
     "Mz": 1.0,
     "name": "Tray",
     "specialInfo": [],
@@ -75,6 +75,9 @@
     "particleSpawningShape": "Spread",
     "particleSpawningRadious": 0.19999999850988387,
     "particleAmount": 1,
+    "particleCondition": {
+      "name": "IsTrayFillCorrect"
+    },
     "hasInventory": true,
     "guiBoundTo": "<NONE>",
     "openGUIOnRightClick": false,
@@ -96,6 +99,12 @@
     "isFluidTank": false,
     "fluidCapacity": 8000,
     "fluidRestrictions": [],
+    "onRightClicked": {
+      "name": "TrayOnBlockRightClicked"
+    },
+    "onBlockAdded": {
+      "name": "TrayBlockAdded"
+    },
     "spawnWorldTypes": [],
     "restrictionBiomes": [],
     "blocksToReplace": [

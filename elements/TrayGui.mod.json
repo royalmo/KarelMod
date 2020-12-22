@@ -23,6 +23,9 @@
           "id": 0,
           "disableStackInteraction": false,
           "dropItemsWhenNotBound": false,
+          "onSlotChanged": {
+            "name": "TrayAmountModified"
+          },
           "name": "Slot #0",
           "x": 166,
           "y": 84
@@ -98,16 +101,19 @@
       {
         "type": "label",
         "data": {
-          "text": "2 beepers left!",
+          "text": "<VAR:TrayFilledLog>",
           "color": {
             "value": -12829636,
             "falpha": 0.0
           },
-          "name": "2 beepers left!",
-          "x": 173,
+          "name": "<VAR:TrayFilledLog>",
+          "x": 163,
           "y": 107
         }
       }
-    ]
+    ],
+    "onOpen": {
+      "name": "TrayGuiOpened"
+    }
   }
 }

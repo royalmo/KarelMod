@@ -34,7 +34,10 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.Minecraft;
 
+import net.mcreator.karelmod.procedures.TrayGuiOpenedProcedure;
+import net.mcreator.karelmod.procedures.TrayAmountModifiedProcedure;
 import net.mcreator.karelmod.block.BeeperBlock;
+import net.mcreator.karelmod.KarelModModVariables;
 import net.mcreator.karelmod.KarelModModElements;
 import net.mcreator.karelmod.KarelModMod;
 
@@ -122,6 +125,12 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 			}
 			this.customSlots.put(0, this.addSlot(new SlotItemHandler(internal, 0, 41, 48) {
 				@Override
+				public void onSlotChanged() {
+					super.onSlotChanged();
+					GuiContainerMod.this.slotChanged(0, 0, 0);
+				}
+
+				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return (new ItemStack(BeeperBlock.block, (int) (1)).getItem() == stack.getItem());
 				}
@@ -144,6 +153,15 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 					this.addSlot(new Slot(inv, sj + (si + 1) * 9, 0 + 8 + sj * 18, 0 + 84 + si * 18));
 			for (si = 0; si < 9; ++si)
 				this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, 0 + 142));
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				TrayGuiOpenedProcedure.executeProcedure($_dependencies);
+			}
 		}
 
 		public Map<Integer, Slot> get() {
@@ -192,87 +210,7 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 			return itemstack;
 		}
 
-		@Override /**
-					 * Merges provided ItemStack with the first avaliable one in the
-					 * container/player inventor between minIndex (included) and maxIndex
-					 * (excluded). Args : stack, minIndex, maxIndex, negativDirection. /!\ the
-					 * Container implementation do not check if the item is valid for the slot
-					 */
-		protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
-			boolean flag = false;
-			int i = startIndex;
-			if (reverseDirection) {
-				i = endIndex - 1;
-			}
-			if (stack.isStackable()) {
-				while (!stack.isEmpty()) {
-					if (reverseDirection) {
-						if (i < startIndex) {
-							break;
-						}
-					} else if (i >= endIndex) {
-						break;
-					}
-					Slot slot = this.inventorySlots.get(i);
-					ItemStack itemstack = slot.getStack();
-					if (slot.isItemValid(itemstack) && !itemstack.isEmpty() && areItemsAndTagsEqual(stack, itemstack)) {
-						int j = itemstack.getCount() + stack.getCount();
-						int maxSize = Math.min(slot.getSlotStackLimit(), stack.getMaxStackSize());
-						if (j <= maxSize) {
-							stack.setCount(0);
-							itemstack.setCount(j);
-							slot.putStack(itemstack);
-							flag = true;
-						} else if (itemstack.getCount() < maxSize) {
-							stack.shrink(maxSize - itemstack.getCount());
-							itemstack.setCount(maxSize);
-							slot.putStack(itemstack);
-							flag = true;
-						}
-					}
-					if (reverseDirection) {
-						--i;
-					} else {
-						++i;
-					}
-				}
-			}
-			if (!stack.isEmpty()) {
-				if (reverseDirection) {
-					i = endIndex - 1;
-				} else {
-					i = startIndex;
-				}
-				while (true) {
-					if (reverseDirection) {
-						if (i < startIndex) {
-							break;
-						}
-					} else if (i >= endIndex) {
-						break;
-					}
-					Slot slot1 = this.inventorySlots.get(i);
-					ItemStack itemstack1 = slot1.getStack();
-					if (itemstack1.isEmpty() && slot1.isItemValid(stack)) {
-						if (stack.getCount() > slot1.getSlotStackLimit()) {
-							slot1.putStack(stack.split(slot1.getSlotStackLimit()));
-						} else {
-							slot1.putStack(stack.split(stack.getCount()));
-						}
-						slot1.onSlotChanged();
-						flag = true;
-						break;
-					}
-					if (reverseDirection) {
-						--i;
-					} else {
-						++i;
-					}
-				}
-			}
-			return flag;
-		}
-
+		//@Override /* failed to load code for net.minecraft.inventory.container.Container */
 		@Override
 		public void onContainerClosed(PlayerEntity playerIn) {
 			super.onContainerClosed(playerIn);
@@ -358,7 +296,7 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 			this.font.drawString("Place here the beepers", 5, 21, -12829636);
 			this.font.drawString("Current", 33, 34, -16724788);
 			this.font.drawString("Needed", 107, 34, -16724788);
-			this.font.drawString("2 beepers left!", 47, 70, -12829636);
+			this.font.drawString("" + (KarelModModVariables.TrayFilledLog) + "", 37, 70, -12829636);
 		}
 
 		@Override
@@ -467,5 +405,16 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 		// security measure to prevent arbitrary chunk generation
 		if (!world.isBlockLoaded(new BlockPos(x, y, z)))
 			return;
+		if (slotID == 0 && changeType == 0) {
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				TrayAmountModifiedProcedure.executeProcedure($_dependencies);
+			}
+		}
 	}
 }
