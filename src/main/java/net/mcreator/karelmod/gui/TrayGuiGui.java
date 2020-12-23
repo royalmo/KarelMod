@@ -12,7 +12,9 @@ import net.minecraftforge.fml.network.IContainerFactory;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
@@ -35,7 +37,6 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.Minecraft;
 
 import net.mcreator.karelmod.procedures.TrayGuiOpenedProcedure;
-import net.mcreator.karelmod.procedures.TrayAmountModifiedProcedure;
 import net.mcreator.karelmod.block.BeeperBlock;
 import net.mcreator.karelmod.KarelModModVariables;
 import net.mcreator.karelmod.KarelModModElements;
@@ -57,11 +58,31 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 				GUISlotChangedMessage::handler);
 		containerType = new ContainerType<>(new GuiContainerModFactory());
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public void initElements() {
 		DeferredWorkQueue.runLater(() -> ScreenManager.registerFactory(containerType, GuiWindow::new));
+	}
+
+	@SubscribeEvent
+	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+		PlayerEntity entity = event.player;
+		if (event.phase == TickEvent.Phase.END && entity.openContainer instanceof GuiContainerMod) {
+			World world = entity.world;
+			double x = entity.getPosX();
+			double y = entity.getPosY();
+			double z = entity.getPosZ();
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				TrayGuiOpenedProcedure.executeProcedure($_dependencies);
+			}
+		}
 	}
 
 	@SubscribeEvent
@@ -131,6 +152,19 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 				}
 
 				@Override
+				public ItemStack onTake(PlayerEntity entity, ItemStack stack) {
+					ItemStack retval = super.onTake(entity, stack);
+					GuiContainerMod.this.slotChanged(0, 1, 0);
+					return retval;
+				}
+
+				@Override
+				public void onSlotChange(ItemStack a, ItemStack b) {
+					super.onSlotChange(a, b);
+					GuiContainerMod.this.slotChanged(0, 2, b.getCount() - a.getCount());
+				}
+
+				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return (new ItemStack(BeeperBlock.block, (int) (1)).getItem() == stack.getItem());
 				}
@@ -155,7 +189,6 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 				this.addSlot(new Slot(inv, si, 0 + 8 + si * 18, 0 + 142));
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
 				$_dependencies.put("x", x);
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
@@ -210,7 +243,87 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 			return itemstack;
 		}
 
-		//@Override /* failed to load code for net.minecraft.inventory.container.Container */
+		@Override /**
+					 * Merges provided ItemStack with the first avaliable one in the
+					 * container/player inventor between minIndex (included) and maxIndex
+					 * (excluded). Args : stack, minIndex, maxIndex, negativDirection. /!\ the
+					 * Container implementation do not check if the item is valid for the slot
+					 */
+		protected boolean mergeItemStack(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection) {
+			boolean flag = false;
+			int i = startIndex;
+			if (reverseDirection) {
+				i = endIndex - 1;
+			}
+			if (stack.isStackable()) {
+				while (!stack.isEmpty()) {
+					if (reverseDirection) {
+						if (i < startIndex) {
+							break;
+						}
+					} else if (i >= endIndex) {
+						break;
+					}
+					Slot slot = this.inventorySlots.get(i);
+					ItemStack itemstack = slot.getStack();
+					if (slot.isItemValid(itemstack) && !itemstack.isEmpty() && areItemsAndTagsEqual(stack, itemstack)) {
+						int j = itemstack.getCount() + stack.getCount();
+						int maxSize = Math.min(slot.getSlotStackLimit(), stack.getMaxStackSize());
+						if (j <= maxSize) {
+							stack.setCount(0);
+							itemstack.setCount(j);
+							slot.putStack(itemstack);
+							flag = true;
+						} else if (itemstack.getCount() < maxSize) {
+							stack.shrink(maxSize - itemstack.getCount());
+							itemstack.setCount(maxSize);
+							slot.putStack(itemstack);
+							flag = true;
+						}
+					}
+					if (reverseDirection) {
+						--i;
+					} else {
+						++i;
+					}
+				}
+			}
+			if (!stack.isEmpty()) {
+				if (reverseDirection) {
+					i = endIndex - 1;
+				} else {
+					i = startIndex;
+				}
+				while (true) {
+					if (reverseDirection) {
+						if (i < startIndex) {
+							break;
+						}
+					} else if (i >= endIndex) {
+						break;
+					}
+					Slot slot1 = this.inventorySlots.get(i);
+					ItemStack itemstack1 = slot1.getStack();
+					if (itemstack1.isEmpty() && slot1.isItemValid(stack)) {
+						if (stack.getCount() > slot1.getSlotStackLimit()) {
+							slot1.putStack(stack.split(slot1.getSlotStackLimit()));
+						} else {
+							slot1.putStack(stack.split(stack.getCount()));
+						}
+						slot1.onSlotChanged();
+						flag = true;
+						break;
+					}
+					if (reverseDirection) {
+						--i;
+					} else {
+						++i;
+					}
+				}
+			}
+			return flag;
+		}
+
 		@Override
 		public void onContainerClosed(PlayerEntity playerIn) {
 			super.onContainerClosed(playerIn);
@@ -408,12 +521,32 @@ public class TrayGuiGui extends KarelModModElements.ModElement {
 		if (slotID == 0 && changeType == 0) {
 			{
 				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("entity", entity);
 				$_dependencies.put("x", x);
 				$_dependencies.put("y", y);
 				$_dependencies.put("z", z);
 				$_dependencies.put("world", world);
-				TrayAmountModifiedProcedure.executeProcedure($_dependencies);
+				TrayGuiOpenedProcedure.executeProcedure($_dependencies);
+			}
+		}
+		if (slotID == 0 && changeType == 1) {
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				TrayGuiOpenedProcedure.executeProcedure($_dependencies);
+			}
+		}
+		if (slotID == 0 && changeType == 2) {
+			int amount = meta;
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				TrayGuiOpenedProcedure.executeProcedure($_dependencies);
 			}
 		}
 	}

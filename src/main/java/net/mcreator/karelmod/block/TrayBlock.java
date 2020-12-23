@@ -65,7 +65,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 
 import net.mcreator.karelmod.procedures.TrayOnBlockRightClickedProcedure;
-import net.mcreator.karelmod.procedures.TrayBlockAddedProcedure;
 import net.mcreator.karelmod.procedures.IsTrayFillCorrectProcedure;
 import net.mcreator.karelmod.itemgroup.KarelItemGroup;
 import net.mcreator.karelmod.KarelModModElements;
@@ -169,22 +168,6 @@ public class TrayBlock extends KarelModModElements.ModElement {
 			if (!dropsOriginal.isEmpty())
 				return dropsOriginal;
 			return Collections.singletonList(new ItemStack(this, 1));
-		}
-
-		@Override
-		public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean moving) {
-			super.onBlockAdded(state, world, pos, oldState, moving);
-			int x = pos.getX();
-			int y = pos.getY();
-			int z = pos.getZ();
-			{
-				Map<String, Object> $_dependencies = new HashMap<>();
-				$_dependencies.put("x", x);
-				$_dependencies.put("y", y);
-				$_dependencies.put("z", z);
-				$_dependencies.put("world", world);
-				TrayBlockAddedProcedure.executeProcedure($_dependencies);
-			}
 		}
 
 		@OnlyIn(Dist.CLIENT)

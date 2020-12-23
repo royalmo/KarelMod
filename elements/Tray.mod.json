@@ -102,9 +102,6 @@
     "onRightClicked": {
       "name": "TrayOnBlockRightClicked"
     },
-    "onBlockAdded": {
-      "name": "TrayBlockAdded"
-    },
     "spawnWorldTypes": [],
     "restrictionBiomes": [],
     "blocksToReplace": [

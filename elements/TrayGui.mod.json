@@ -24,7 +24,13 @@
           "disableStackInteraction": false,
           "dropItemsWhenNotBound": false,
           "onSlotChanged": {
-            "name": "TrayAmountModified"
+            "name": "TrayGuiOpened"
+          },
+          "onTakenFromSlot": {
+            "name": "TrayGuiOpened"
+          },
+          "onStackTransfer": {
+            "name": "TrayGuiOpened"
           },
           "name": "Slot #0",
           "x": 166,
@@ -113,6 +119,9 @@
       }
     ],
     "onOpen": {
+      "name": "TrayGuiOpened"
+    },
+    "onTick": {
       "name": "TrayGuiOpened"
     }
   }
