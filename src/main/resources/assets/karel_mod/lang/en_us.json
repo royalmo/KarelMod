@@ -1,5 +1,6 @@
 {
   "block.karel_mod.bomb": "Bomb",
+  "block.karel_mod.nuke_bomb": "Nuke Bomb",
   "block.karel_mod.beeper": "Beeper",
   "key.mcreator.exit": "Exit",
   "block.karel_mod.tray": "Tray",

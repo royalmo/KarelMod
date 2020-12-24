@@ -2,40 +2,40 @@
   "_fv": 13,
   "_type": "block",
   "definition": {
-    "texture": "untitled-2",
+    "texture": "nuke_texture",
     "textureTop": "",
     "textureLeft": "",
     "textureFront": "",
     "textureRight": "",
     "textureBack": "",
-    "renderType": 12,
-    "customModelName": "Cross model",
+    "renderType": 2,
+    "customModelName": "nuke:default",
     "rotationMode": 0,
-    "emissiveRendering": true,
+    "emissiveRendering": false,
     "displayFluidOverlay": false,
-    "itemTexture": "untitled-1",
-    "particleTexture": "untitled-2",
+    "itemTexture": "nuke_preview",
+    "particleTexture": "",
     "hasTransparency": true,
     "connectedSides": false,
-    "transparencyType": "CUTOUT_MIPPED",
-    "mx": 0.30000000000000004,
-    "my": 0.30000000000000004,
-    "mz": 0.30000000000000004,
-    "Mx": 0.7000000000000001,
-    "My": 0.7000000000000001,
-    "Mz": 0.7000000000000001,
-    "name": "Beeper",
+    "transparencyType": "SOLID",
+    "mx": 0.0,
+    "my": 0.0,
+    "mz": 0.0,
+    "Mx": 1.0,
+    "My": 0.05,
+    "Mz": 1.0,
+    "name": "Nuke Bomb",
     "specialInfo": [],
     "hardness": 1.0,
-    "resistance": 7.0,
+    "resistance": 10.0,
     "hasGravity": false,
-    "isWaterloggable": true,
+    "isWaterloggable": false,
     "creativeTab": {
       "value": "CUSTOM:Karel"
     },
     "destroyTool": "Not specified",
     "customDrop": {
-      "value": "CUSTOM:Beeper"
+      "value": ""
     },
     "dropAmount": 1,
     "useLootTableForDrops": false,
@@ -45,40 +45,36 @@
     "canProvidePower": false,
     "lightOpacity": 0,
     "material": {
-      "value": "PLANTS"
+      "value": "ROCK"
     },
     "tickRate": 10,
     "tickRandomly": false,
     "isReplaceable": false,
-    "colorOnMap": "SNOW",
+    "colorOnMap": "DEFAULT",
     "creativePickItem": {
       "value": ""
     },
     "offsetType": "NONE",
     "aiPathNodeType": "DEFAULT",
-    "beaconColorModifier": {
-      "value": -16737895,
-      "falpha": 0.0
-    },
     "flammability": 0,
     "fireSpreadSpeed": 0,
     "isLadder": false,
     "slipperiness": 0.6,
     "reactionToPushing": "DESTROY",
-    "isNotColidable": true,
+    "isNotColidable": false,
     "soundOnStep": {
-      "value": "GLASS"
+      "value": "METAL"
     },
-    "luminance": 0.8,
+    "luminance": 0.9,
     "unbreakable": false,
     "breakHarvestLevel": 1,
     "spawnParticles": true,
     "particleToSpawn": {
-      "value": "END_ROD"
+      "value": "CRIT"
     },
     "particleSpawningShape": "Spread",
-    "particleSpawningRadious": 0.09999999850988389,
-    "particleAmount": 2,
+    "particleSpawningRadious": 0.5,
+    "particleAmount": 4,
     "hasInventory": false,
     "guiBoundTo": "<NONE>",
     "openGUIOnRightClick": false,
@@ -96,8 +92,8 @@
     "isFluidTank": false,
     "fluidCapacity": 8000,
     "fluidRestrictions": [],
-    "onRightClicked": {
-      "name": "BeeperRightClick"
+    "onEntityCollides": {
+      "name": "CreateNuke"
     },
     "spawnWorldTypes": [],
     "restrictionBiomes": [],

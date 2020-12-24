@@ -68,13 +68,13 @@
     "luminance": 0.9,
     "unbreakable": false,
     "breakHarvestLevel": 1,
-    "spawnParticles": false,
+    "spawnParticles": true,
     "particleToSpawn": {
-      "value": "LAVA"
+      "value": "CRIT"
     },
     "particleSpawningShape": "Spread",
     "particleSpawningRadious": 0.5,
-    "particleAmount": 4,
+    "particleAmount": 5,
     "hasInventory": true,
     "guiBoundTo": "<NONE>",
     "openGUIOnRightClick": false,

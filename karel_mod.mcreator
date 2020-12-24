@@ -530,6 +530,77 @@
           }
         ]
       }
+    },
+    {
+      "name": "BeeperRightClick",
+      "type": "procedure",
+      "sortid": 34,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "beeper_right_click",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CreateNuke",
+      "type": "procedure",
+      "sortid": 35,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "create_nuke",
+      "metadata": {
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "NukeBomb",
+      "type": "block",
+      "sortid": 35,
+      "compiles": true,
+      "locked_code": false,
+      "ids": {},
+      "registry_name": "nuke_bomb"
     }
   ],
   "variable_elements": [
@@ -574,6 +645,7 @@
   "language_map": {
     "en_us": {
       "block.karel_mod.bomb": "Bomb",
+      "block.karel_mod.nuke_bomb": "Nuke Bomb",
       "block.karel_mod.beeper": "Beeper",
       "key.mcreator.exit": "Exit",
       "block.karel_mod.tray": "Tray",

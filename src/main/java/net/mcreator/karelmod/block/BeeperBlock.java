@@ -15,8 +15,11 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.BooleanProperty;
@@ -39,11 +42,14 @@ import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Block;
 
+import net.mcreator.karelmod.procedures.BeeperRightClickProcedure;
 import net.mcreator.karelmod.itemgroup.KarelItemGroup;
 import net.mcreator.karelmod.KarelModModElements;
 
 import java.util.Random;
+import java.util.Map;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Collections;
 
 @KarelModModElements.ModElement.Tag
@@ -164,6 +170,26 @@ public class BeeperBlock extends KarelModModElements.ModElement {
 					double d5 = (random.nextFloat() - 0.5D) * 0.0999999985098839D;
 					world.addParticle(ParticleTypes.END_ROD, d0, d1, d2, d3, d4, d5);
 				}
+		}
+
+		@Override
+		public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand,
+				BlockRayTraceResult hit) {
+			super.onBlockActivated(state, world, pos, entity, hand, hit);
+			int x = pos.getX();
+			int y = pos.getY();
+			int z = pos.getZ();
+			Direction direction = hit.getFace();
+			{
+				Map<String, Object> $_dependencies = new HashMap<>();
+				$_dependencies.put("entity", entity);
+				$_dependencies.put("x", x);
+				$_dependencies.put("y", y);
+				$_dependencies.put("z", z);
+				$_dependencies.put("world", world);
+				BeeperRightClickProcedure.executeProcedure($_dependencies);
+			}
+			return ActionResultType.SUCCESS;
 		}
 	}
 }

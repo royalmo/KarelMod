@@ -1,0 +1,8 @@
+{
+  "parent": "karel_mod:custom/nuke",
+  "textures": {
+    "all": "karel_mod:blocks/nuke_texture",
+    "particle": "karel_mod:blocks/nuke_texture",
+    "0": "karel_mod:blocks/nuke_texture"
+  }
+}
