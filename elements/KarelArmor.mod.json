@@ -1,0 +1,53 @@
+{
+  "_fv": 13,
+  "_type": "armor",
+  "definition": {
+    "enableHelmet": true,
+    "textureHelmet": "karel_helmet_texture_item",
+    "enableBody": true,
+    "textureBody": "karel_chest_texture_item",
+    "enableLeggings": true,
+    "textureLeggings": "karel_armor_leggings_item",
+    "enableBoots": true,
+    "textureBoots": "karel_armor_boots_item",
+    "creativeTab": {
+      "value": "CUSTOM:Karel"
+    },
+    "armorTextureFile": "karel_armor_",
+    "helmetName": "Karel Armor Helmet",
+    "bodyName": "Karel Armor Body",
+    "leggingsName": "Karel Armor Leggings",
+    "bootsName": "Karel Armor Boots",
+    "helmetSpecialInfo": [],
+    "bodySpecialInfo": [],
+    "leggingsSpecialInfo": [],
+    "bootsSpecialInfo": [],
+    "helmetModelName": "Default",
+    "helmetModelPart": "Helmet",
+    "helmetModelTexture": "From armor",
+    "bodyModelName": "Default",
+    "bodyModelPart": "Body",
+    "armsModelPartL": "Arms L",
+    "armsModelPartR": "Arms R",
+    "bodyModelTexture": "From armor",
+    "leggingsModelName": "Default",
+    "leggingsModelPartL": "Leggings L",
+    "leggingsModelPartR": "Leggings R",
+    "leggingsModelTexture": "From armor",
+    "bootsModelName": "Default",
+    "bootsModelPartL": "Boots L",
+    "bootsModelPartR": "Boots R",
+    "bootsModelTexture": "From armor",
+    "maxDamage": 25,
+    "damageValueHelmet": 2,
+    "damageValueBody": 6,
+    "damageValueLeggings": 5,
+    "damageValueBoots": 2,
+    "enchantability": 9,
+    "toughness": 2.0,
+    "equipSound": {
+      "value": "block.note.flute"
+    },
+    "repairItems": []
+  }
+}

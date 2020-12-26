@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "karel_mod:items/karel_armor_boots_item"
+  }
+}
